@@ -2,7 +2,10 @@
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
-
+@keyframes border-blink {
+  0%, 100% { border-color: transparent; }
+  50%      { border-color: var(--status-processing); } 
+}
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -68,7 +71,7 @@
   /* Status Colors - OpulentIvory */
   --status-empty: #A3B18A;
   --status-eating: #D85B45;
-  --status-processing: #C89F4E;
+  --status-processing: #ac863b;
   --status-paid: #5F8F7B;
 
   --font-luxury: 'Inter', system-ui, sans-serif;
@@ -110,33 +113,33 @@
 }
 
 .dark {
-   /* PrestigeNoir (Dark) Theme */
-    --background: #171717;
-    --foreground: #F5F5F5;
-    --card: #2E2A27;
-    --card-foreground: #F5F5F5;
-    --popover: #23211E;
-    --popover-foreground: #F5F5F5;
-    --muted: #1F1E1C;
-    --muted-foreground: #BFBAB2;
-    --primary: #9C805D;
-    --primary-foreground: #161513;
-    --secondary: #5E5A56;
-    --secondary-foreground: #F5F5F5;
-    --accent: #5E5A56;
-    --accent-foreground: #F5F5F5;
-    --destructive: #E57373;
-    --destructive-foreground: #1A0C0C;
-    --border: #3A3632;
-    --input: #3A3632;
-    --ring: #9C805D;
+  /* PrestigeNoir (Dark) Theme */
+  --background: #171717;
+  --foreground: #F5F5F5;
+  --card: #2E2A27;
+  --card-foreground: #F5F5F5;
+  --popover: #23211E;
+  --popover-foreground: #F5F5F5;
+  --muted: #1F1E1C;
+  --muted-foreground: #BFBAB2;
+  --primary: #9C805D;
+  --primary-foreground: #161513;
+  --secondary: #5E5A56;
+  --secondary-foreground: #F5F5F5;
+  --accent: #5E5A56;
+  --accent-foreground: #F5F5F5;
+  --destructive: #E57373;
+  --destructive-foreground: #1A0C0C;
+  --border: #3A3632;
+  --input: #3A3632;
+  --ring: #9C805D;
 
-    /* Status Colors - PrestigeNoir */
-    --status-empty: #8DAE7D;
-    --status-eating: #FF8A65;
-    --status-processing: #FFD54F;
-    --status-paid: #80CBC4;
-    
+  /* Status Colors - PrestigeNoir */
+  --status-empty: #8DAE7D;
+  --status-eating: #FF8A65;
+  --status-processing: #c49c18;
+  --status-paid: #80CBC4;
+
   /* --background: oklch(0.129 0.042 264.695);
   --foreground: oklch(0.984 0.003 247.858);
   --card: oklch(0.208 0.042 265.755);
@@ -177,5 +180,48 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-semibold tracking-tight;
+  }
+}
+
+@layer components {
+  .luxury-card {
+    @apply bg-card text-card-foreground rounded-lg border shadow-sm;
+  }
+
+  .status-badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-bold;
+  }
+
+  .status-empty {
+    background-color: var(--status-empty);
+    @apply text-white;
+  }
+
+  .status-eating {
+    background-color: var(--status-eating);
+    @apply text-white;
+  }
+
+  .status-processing {
+    background-color: var(--status-processing);
+    @apply text-white;
+  }
+
+  .status-paid {
+    background-color: var(--status-paid);
+    @apply text-white;
+  }
+
+  .numpad-button {
+    @apply w-16 h-16 rounded-lg bg-secondary text-secondary-foreground font-semibold text-lg hover:bg-accent transition-colors flex items-center justify-center;
   }
 }

@@ -1,3 +1,4 @@
+'use client'
 import { Button } from "@/components/ui/button"
 import { useTheme } from "@/contexts/ThemeContext";
 import { MoonIcon, SunIcon } from "lucide-react";
