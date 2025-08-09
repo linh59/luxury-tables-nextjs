@@ -1,0 +1,16 @@
+{
+  "login": {
+    "title": "Luxury Table",
+    "description": "Premium Restaurant Management System",
+    "welcomeBack": "Chào mừng quay lại",
+    "admin": "Admin",
+    "employee": "Employee",
+    "eamilAddress": "Email Address",
+    "password": "Password",
+    "username": "Username",
+    "signingIn": "Signing in...",
+    "signInAsEmployee": "Sign in as Employee",
+    "description2": "Sign in to manage your restaurant",
+    "signInAsAdmin": "Sign in as Admin"
+  }
+}
