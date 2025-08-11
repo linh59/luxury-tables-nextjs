@@ -60,7 +60,8 @@
     "signingIn": "Signing in...",
     "signInAsEmployee": "Sign in as Employee",
     "description2": "Sign in to manage your restaurant",
-    "signInAsAdmin": "Sign in as Admin"
+    "signInAsAdmin": "Sign in as Admin",
+    "signIn": "Sign In"
   },
   "sidebar": {
     "dashboard": "Bảng điều khiển",

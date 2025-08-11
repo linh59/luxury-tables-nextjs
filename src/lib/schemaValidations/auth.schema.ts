@@ -25,6 +25,16 @@ export const LoginRes = z.object({
 
 export type LoginResType = z.TypeOf<typeof LoginRes>
 
+export const LoginEmployeeBody = z
+  .object({
+    username: z.string().trim().min(1, 'required'),
+    password: z.string().min(6, 'minmaxPassword').max(100, 'minmaxPassword')
+  })
+  .strict()
+
+export type LoginEmployeeBodyType = z.TypeOf<typeof LoginEmployeeBody>
+
+
 export const RefreshTokenBody = z
   .object({
     refreshToken: z.string()
