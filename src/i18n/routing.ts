@@ -9,14 +9,14 @@ export const routing = defineRouting({
     // Used when no locale matches
     defaultLocale: defaultLocale,
 
-    // localePrefix: 'always' // hoặc 'always' tuỳ bạn
+    localePrefix: 'always' 
 
     
 })
 
 // Lightweight wrappers around Next.js' navigation APIs
 // that will consider the routing configuration
-export const { Link, redirect, usePathname, useRouter } =
+export const { Link, redirect,  usePathname, useRouter ,} =
     createNavigation(routing)
 
 export type Locale = (typeof routing.locales)[number];

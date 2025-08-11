@@ -45,7 +45,8 @@
         "undo": "Undo",
         "redo": "Redo",
         "accessDenied": "Access Denied",
-        "optional": "Optional"
+        "optional": "Optional",
+        "required": "Required"
     },
     "login": {
         "title": "Luxury Tables",

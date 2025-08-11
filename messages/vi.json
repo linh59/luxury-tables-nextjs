@@ -45,7 +45,8 @@
     "undo": "Hoàn tác",
     "redo": "Làm lại",
     "accessDenied": "Không có quyền truy cập",
-    "optional": "Tùy chọn"
+    "optional": "Tùy chọn",
+     "required": "Required"
   },
   "login": {
     "title": "Luxury Table",

@@ -2,11 +2,11 @@
 import React from 'react';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 // import { useAuth } from '@/contexts/AuthContext';
-import { Button } from '@/components/ui/button';
 import { Moon, Sun, LogOut, Crown, User } from 'lucide-react';
 import { LanguageSelector } from '@/components/language-selector';
 import LightDarkModeBtn from '@/components/light-dark-mode-btn';
 import AppSidebar from '@/components/app-side-bar';
+import LogoutButton from '@/components/auth/logout-button';
 
 export default async function ManageLayout({
   children
@@ -50,14 +50,7 @@ export default async function ManageLayout({
               
             <LightDarkModeBtn />
               
-              {/* <Button
-                variant="ghost"
-                size="icon"
-                onClick={logout}
-                className="h-9 w-9 text-destructive hover:text-destructive"
-              >
-                <LogOut className="h-4 w-4" />
-              </Button> */}
+             <LogoutButton withConfirm/>
             </div>
           </header>
 

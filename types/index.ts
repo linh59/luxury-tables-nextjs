@@ -2,6 +2,8 @@ export type UserRole = 'admin' | 'employee';
 
 export type TableStatus = 'empty' | 'eating' | 'processing' | 'paid';
 
+
+
 export interface User {
   id: string;
   email?: string;
