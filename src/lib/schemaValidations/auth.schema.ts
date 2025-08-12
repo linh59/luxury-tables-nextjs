@@ -13,14 +13,10 @@ export const LoginBody = z
 export type LoginBodyType = z.TypeOf<typeof LoginBody>
 
 export const LoginRes = z.object({
-  data: z.object({
-    id: z.number(),
-    token: z.string(),
-    email: z.string(),
-    user_role: z.enum([Role.Admin, Role.Employee]),
-    // refreshToken: z.string(),
-  }),
-  message: z.string()
+  id: z.number(),
+  token: z.string(),
+  email: z.string(),
+  user_role: z.enum([Role.Admin, Role.Employee]),
 })
 
 export type LoginResType = z.TypeOf<typeof LoginRes>

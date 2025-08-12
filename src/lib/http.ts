@@ -1,82 +1,92 @@
-import { EntityError, ENTITY_ERROR_STATUS, type EntityErrorPayload } from '@/lib/error'
-import envConfig from '../../config'
+// src/lib/http.ts
+import { getAccessTokenFromLocalStorage } from "@/lib/utils";
+import envConfig from "../../config";
 
 export class HttpError extends Error {
-  status: number
-  payload: any
-  constructor(status: number, payload: any, message?: string) {
-    super(message || 'HTTP Error')
-    this.status = status
-    this.payload = payload
+  constructor(public status: number, public payload: any, message?: string) {
+    super(message || "HTTP Error");
   }
 }
 
+export type HttpResult<T> = { status: number; payload: T };
+export type CustomOptions = Omit<RequestInit, "method"> & {
+  baseUrl?: string;           // undefined -> dùng env
+  auth?: boolean;             // default true -> tự gắn Authorization
+  onUnauthorized?: () => void; // handler 401 theo request (ghi đè global)
+};
 
-async function readPayloadSafe<T>(res: Response): Promise<T> {
-  const text = await res.text()
-  if (!text) return {} as T
-  try { return JSON.parse(text) as T } catch { return { message: text } as unknown as T }
+const isAbs = (u: string) => /^https?:\/\//i.test(u);
+const joinUrl = (b: string, p: string) =>
+  `${b.replace(/\/+$/, "")}/${p.replace(/^\/+/, "")}`;
+
+async function readSafe<T>(res: Response): Promise<T> {
+  const text = await res.text();
+  if (!text) return {} as T;
+  try { return JSON.parse(text) as T; }
+  catch { return { message: text } as unknown as T; }
 }
 
-function joinUrl(base: string, path: string) {
-  const b = base.replace(/\/+$/, '')
-  const p = path.replace(/^\/+/, '')
-  return `${b}/${p}`
+// ===== Global handlers (set 1 lần ở AppProvider)
+let globalOnUnauthorized: (() => void) | undefined;
+export function setHttpHandlers(h: { onUnauthorized?: () => void }) {
+  if (h.onUnauthorized) globalOnUnauthorized = h.onUnauthorized;
 }
 
-export type CustomOptions = Omit<RequestInit, 'method'> & { baseUrl?: string }
-export type HttpResult<T> = { status: number; payload: T }
-
-async function request<ResponseBody>(
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE',
+async function request<T>(
+  method: "GET" | "POST" | "PUT" | "DELETE",
   url: string,
   options?: CustomOptions
-): Promise<HttpResult<ResponseBody>> {
-  const baseUrl = options?.baseUrl === undefined ? envConfig.NEXT_PUBLIC_API_ENDPOINT : options.baseUrl
-  const fullUrl = baseUrl ? joinUrl(baseUrl, url) : `/${url.replace(/^\/+/, '')}`
+): Promise<HttpResult<T>> {
+  const base =
+    options?.baseUrl === undefined ? envConfig.NEXT_PUBLIC_API_ENDPOINT : options.baseUrl;
+  const fullUrl = isAbs(url) ? url : base ? joinUrl(base, url) : `/${url.replace(/^\/+/, "")}`;
 
-  const isFormData = options?.body instanceof FormData
-
-  const headers: Record<string, string> = isFormData
+  const isFD = options?.body instanceof FormData;
+  const headers: Record<string, string> = isFD
     ? { ...(options?.headers as any) }
-    : { 'Content-Type': 'application/json', ...(options?.headers as any) }
+    : { "Content-Type": "application/json", ...(options?.headers as any) };
 
-  const body = isFormData ? (options?.body as FormData) : options?.body ? JSON.stringify(options?.body) : undefined
+  if (options?.auth !== false && !("Authorization" in headers)) {
+    const token = typeof window !== "undefined" ? getAccessTokenFromLocalStorage() : null;
+    if (token) headers["Authorization"] = token;
+  }
+
+  const body = isFD ? (options?.body as FormData) : options?.body ? JSON.stringify(options.body) : undefined;
 
   const res = await fetch(fullUrl, {
     ...options,
     method,
     headers,
     body,
-    credentials: baseUrl ? 'omit' : 'include', // same-origin ('' baseUrl) sẽ gửi cookie
-    cache: method === 'GET' ? options?.cache : 'no-store'
-  })
+    credentials: base ? "omit" : "include", // không gửi cookie cross-origin
+    cache: method === "GET" ? options?.cache : "no-store",
+  });
 
-  const payload = await readPayloadSafe<ResponseBody>(res)
+  const payload = await readSafe<T>(res);
 
   if (!res.ok) {
-    if (res.status === ENTITY_ERROR_STATUS) {
-      throw new EntityError({ status: ENTITY_ERROR_STATUS, payload: payload as any as EntityErrorPayload })
+    // 401: gọi handler (per-request > global) rồi quăng lỗi
+    if (res.status === 401) {
+      try { (options?.onUnauthorized ?? globalOnUnauthorized)?.(); } catch {}
     }
-    throw new HttpError(res.status, payload, res.statusText || 'Request failed')
+    throw new HttpError(res.status, payload, res.statusText || "Request failed");
   }
 
-  // 🔧 Quan trọng: trả về kết quả
-  return { status: res.status, payload }
+  return { status: res.status, payload };
 }
 
 const http = {
-  get<ResponseBody>(url: string, options?: Omit<CustomOptions, 'body'>) {
-    return request<ResponseBody>('GET', url, options)
+  get<T>(url: string, options?: Omit<CustomOptions, "body">) {
+    return request<T>("GET", url, options);
   },
-  post<ResponseBody>(url: string, body: any, options?: Omit<CustomOptions, 'body'>) {
-    return request<ResponseBody>('POST', url, { ...options, body })
+  post<T>(url: string, body: any, options?: Omit<CustomOptions, "body">) {
+    return request<T>("POST", url, { ...options, body });
   },
-  put<ResponseBody>(url: string, body: any, options?: Omit<CustomOptions, 'body'>) {
-    return request<ResponseBody>('PUT', url, { ...options, body })
+  put<T>(url: string, body: any, options?: Omit<CustomOptions, "body">) {
+    return request<T>("PUT", url, { ...options, body });
   },
-  delete<ResponseBody>(url: string, options?: Omit<CustomOptions, 'body'>) {
-    return request<ResponseBody>('DELETE', url, options)
-  }
-}
-export default http
+  delete<T>(url: string, options?: Omit<CustomOptions, "body">) {
+    return request<T>("DELETE", url, options);
+  },
+};
+export default http;

@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { routing } from "@/i18n/routing";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import AppProvider from "@/components/app-provider";
+import AppProviders from "@/components/providers/app-providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,10 +39,12 @@ export default async function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <NextIntlClientProvider locale={locale} messages={messages} >
           <AppProvider>
-            <ThemeProvider>
+            <AppProviders>
+              <ThemeProvider>
               <Toaster />
               {children}
             </ThemeProvider>
+            </AppProviders>
           </AppProvider>
 
         </NextIntlClientProvider>

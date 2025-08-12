@@ -7,14 +7,14 @@ import { LanguageSelector } from '@/components/language-selector';
 import LightDarkModeBtn from '@/components/light-dark-mode-btn';
 import AppSidebar from '@/components/app-side-bar';
 import LogoutButton from '@/components/auth/logout-button';
+import { useProfile } from '@/queries/useAccount';
+import UserProfile from '@/components/navigation/user-profile';
 
-export default async function ManageLayout({
+export default function ManageLayout({
   children
 }: Readonly<{ children: React.ReactNode; params: { locale: string } }>) {
-
-// export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 //   const { user, logout } = useAuth();
-
+    
 //   if (!user) return <>{children}</>;
 
   return (
@@ -41,7 +41,9 @@ export default async function ManageLayout({
                   <span className="text-xs text-muted-foreground">
                     {user.email || user.username}
                   </span>
+                  
                 </div> */}
+              <UserProfile/>
               </div>
             </div>
 

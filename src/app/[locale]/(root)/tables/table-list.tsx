@@ -108,16 +108,11 @@ export default function TableList({
           </p>
         </div>
 
-        {user?.role === 'admin' && (
-          <Button className="btn-luxury">
-            <Plus className="h-4 w-4 mr-2" />
-            {t('tableManagement.addTable')}
-          </Button>
-        )}
+        
       </div>
 
       {/* Store Selection */}
-      {user?.role === 'admin' && (
+      
         <Card className="glass">
           <CardContent className="p-4">
             <div className="flex items-center gap-4">
@@ -141,7 +136,7 @@ export default function TableList({
             </div>
           </CardContent>
         </Card>
-      )}
+  
 
       {selectedStore ? (
         <>
