@@ -11,13 +11,14 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { LoginBody, type LoginBodyType } from '@/lib/schemaValidations/auth.schema';
-import authApiRequest from '@/apiRequests/auth';
+import { useLoginMutation } from '@/queries/useAuth';
+import { handleErrorApi } from '@/lib/utils';
 
 export default function AdminLoginForm({ onLoggedIn }: { onLoggedIn?: () => void }) {
   const t = useTranslations();
   const [error, setError] = React.useState<string | null>(null);
   const [loading, setLoading] = React.useState(false);
-
+  const loginAdminMutation = useLoginMutation();
   const { register, handleSubmit, formState: { errors } } = useForm<LoginBodyType>({
     resolver: zodResolver(LoginBody),
     defaultValues: { email: 'linhnguyenphuong59@gmail.com', password: 'Pass@123' }
@@ -25,11 +26,17 @@ export default function AdminLoginForm({ onLoggedIn }: { onLoggedIn?: () => void
 
   const onSubmit = handleSubmit(async (values) => {
     setError(null); setLoading(true);
+    if(loginAdminMutation.isPending) return; // Prevent multiple submissions
+   
     try {
-      await authApiRequest.login(values); // {email, password}
+      await loginAdminMutation.mutateAsync(values); // {email, password}
       onLoggedIn?.();
     } catch (e: any) {
-      setError(e?.message || 'Login error');
+        handleErrorApi({
+            error: e,
+            setError,
+        });
+      ;
     } finally {
       setLoading(false);
     }
