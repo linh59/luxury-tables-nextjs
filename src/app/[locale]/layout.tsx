@@ -41,7 +41,7 @@ export default async function RootLayout({
           <AppProvider>
             <AppProviders>
               <ThemeProvider>
-              <Toaster />
+              <Toaster richColors/>
               {children}
             </ThemeProvider>
             </AppProviders>

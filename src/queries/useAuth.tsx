@@ -24,7 +24,6 @@ export const useLogoutMutiation = () => {
     return useMutation({
         mutationFn: () => authApiRequest.logout(),
         onSuccess: () => {
-            // Handle successful logout, e.g., clear user data, redirect, etc.
             console.log('Logout successful');
         },
         onError: (error) => {

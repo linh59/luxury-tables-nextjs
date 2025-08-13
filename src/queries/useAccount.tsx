@@ -1,6 +1,6 @@
 
 import accountApiRequest from "@/apiRequests/account";
-import {  AccountType, AccountUpdateFormSchemaType } from "@/lib/schemaValidations/account.schema";
+import {  AccountType, AccountUpdateFormSchemaType, PasswordFormDataType } from "@/lib/schemaValidations/account.schema";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const useProfile =  () => {
@@ -31,3 +31,17 @@ export const useUpdateProfileMutation = () => {
     });
 }
 
+export const useChangePasswordMutation = () => {
+    return useMutation({
+        mutationFn: async (data: PasswordFormDataType) => {
+            const res = await accountApiRequest.changePassword(data);
+            return res.payload;
+        },
+        onSuccess: () => {
+            console.log('Password changed successfully');
+        },
+        onError: (error) => {
+            console.error('Error changing password:', error);
+        }
+    });
+}

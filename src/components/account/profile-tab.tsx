@@ -17,7 +17,7 @@ import { handleErrorApi } from '@/lib/utils';
 
 export const ProfileTab = () => {
   const t = useTranslations();
-  const { data: user, isLoading } = useProfile()
+  const { data: user, isLoading, isSuccess } = useProfile()
   const useUpdateProfile = useUpdateProfileMutation();
   // const { user, updateProfile } = useAuth();
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);

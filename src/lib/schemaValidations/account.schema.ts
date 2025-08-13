@@ -51,19 +51,29 @@ export type AccountIdParamType = z.TypeOf<typeof AccountIdParam>
 
 
 export const PasswordSchema = z.object({
-  currentPassword: z.string().min(1, 'Current password is required'),
-  newPassword: z.string()
+  password: z.string().min(1, 'Current password is required'),
+  new_password: z.string()
     .min(8, 'Password must be at least 8 characters')
     .regex(/(?=.*[a-z])/, 'Password must contain at least one lowercase letter')
     .regex(/(?=.*[A-Z])/, 'Password must contain at least one uppercase letter')
     .regex(/(?=.*\d)/, 'Password must contain at least one number'),
-  confirmNewPassword: z.string(),
-}).refine((data) => data.newPassword === data.confirmNewPassword, {
+  re_new_password: z.string(),
+}).refine((data) => data.new_password === data.re_new_password, {
   message: "Passwords don't match",
   path: ["confirmNewPassword"],
-}).refine((data) => data.currentPassword !== data.newPassword, {
+}).refine((data) => data.re_new_password !== data.password, {
   message: "New password must be different from current password",
   path: ["newPassword"],
 });
 
-export type PasswordFormData = z.infer<typeof PasswordSchema>;
+export type PasswordFormDataType = z.infer<typeof PasswordSchema>;
+
+export const PasswordFormDataRes = z
+  .object({
+    code: z.string(),
+    message: z.string()
+  })
+  .strict()
+
+export type PasswordFormDataResType = z.TypeOf<typeof PasswordFormDataRes>
+

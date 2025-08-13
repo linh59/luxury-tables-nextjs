@@ -6,49 +6,42 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Shield, Eye, EyeOff, Key } from 'lucide-react';
-import { PasswordFormData, PasswordSchema } from '@/lib/schemaValidations/account.schema';
+import { PasswordFormDataType, PasswordSchema } from '@/lib/schemaValidations/account.schema';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+import { useChangePasswordMutation } from '@/queries/useAccount';
+import { toast } from 'sonner';
+import { handleErrorApi } from '@/lib/utils';
 
 
 
 export const SecurityTab = () => {
-  // const { changePassword } = useAuth();
   const t = useTranslations();
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  const form = useForm<PasswordFormData>({
+  const useChangePassword = useChangePasswordMutation();
+  const form = useForm<PasswordFormDataType>({
     resolver: zodResolver(PasswordSchema),
     defaultValues: {
-      currentPassword: '',
-      newPassword: '',
-      confirmNewPassword: '',
+      password: '',
+      new_password: '',
+      re_new_password: '',
     },
   });
 
-  const onSubmit = async (data: PasswordFormData) => {
-    console.log('Submitting password change:', data);
-    // try {
-    //   const success = await changePassword(data.currentPassword, data.newPassword);
-    //   if (success) {
-    //     form.reset();
-    //    toast.success(t('account.passwordChanged'))
-    //   } else {
-    //     toast({
-    //       title: t('account.error'),
-    //       description: t('account.incorrectPassword'),
-    //       variant: 'destructive',
-    //     });
-    //   }
-    // } catch (error) {
-    //   toast({
-    //     title: t('account.error'),
-    //     description: t('account.passwordChangeFailed'),
-    //     variant: 'destructive',
-    //   });
-    // }
+  const onSubmit = async (data: PasswordFormDataType) => {
+    try {
+      await useChangePassword.mutateAsync(data);
+      form.reset();
+      toast.success(t('account.passwordChanged'));
+    } catch (error) {
+      handleErrorApi({
+        error,
+      });
+    }
+
+
   };
 
   const getPasswordStrength = (password: string) => {
@@ -65,7 +58,7 @@ export const SecurityTab = () => {
     const strength = getPasswordStrength(password);
     const labels = [t('account.veryWeak'), t('account.weak'), t('account.fair'), t('account.good'), t('account.strong')];
     const colors = ['bg-red-500', 'bg-orange-500', 'bg-yellow-500', 'bg-blue-500', 'bg-green-500'];
-    
+
     return (
       <div className="mt-2">
         <div className="flex gap-1 mb-1">
@@ -97,10 +90,12 @@ export const SecurityTab = () => {
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <form onSubmit={form.handleSubmit(onSubmit, (error) => {
+              console.error('Form submission error:', error);
+            })} className="space-y-4">
               <FormField
                 control={form.control}
-                name="currentPassword"
+                name="password"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{t('account.currentPassword')}</FormLabel>
@@ -133,7 +128,7 @@ export const SecurityTab = () => {
 
               <FormField
                 control={form.control}
-                name="newPassword"
+                name="new_password"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{t('account.newPassword')}</FormLabel>
@@ -167,7 +162,7 @@ export const SecurityTab = () => {
 
               <FormField
                 control={form.control}
-                name="confirmNewPassword"
+                name="re_new_password"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{t('account.confirmNewPassword')}</FormLabel>
