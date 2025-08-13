@@ -21,15 +21,16 @@ import {
   Store as StoreIcon,
   Settings,
   Crown,
-  TableProperties
+  TableProperties,
+  Info
 } from 'lucide-react';
 
-import {useTranslations} from 'next-intl';
-import {usePathname, useRouter, Link} from '@/i18n/routing'; // ✅ next-intl navigation (thay cho react-router-dom)
+import { useTranslations } from 'next-intl';
+import { usePathname, useRouter, Link } from '@/i18n/routing'; // ✅ next-intl navigation (thay cho react-router-dom)
 
 export default function AppSidebar() {
   const t = useTranslations();
-  const {state} = useSidebar();
+  const { state } = useSidebar();
   const pathname = usePathname();     // trả về path KHÔNG kèm /en|/vi
   const router = useRouter();         // push/replace sẽ tự thêm locale
   const isCollapsed = state === 'collapsed';
@@ -40,19 +41,21 @@ export default function AppSidebar() {
   const role: 'admin' | 'employee' = 'admin';
 
   const adminItems = [
-    { title: t('sidebar.dashboard'),       url: '/dashboard',        icon: LayoutDashboard },
-    { title: t('sidebar.stores'),          url: '/stores',           icon: StoreIcon },
-    { title: t('sidebar.tables'),          url: '/tables',           icon: Utensils },
+    { title: t('sidebar.dashboard'), url: '/dashboard', icon: LayoutDashboard },
+    { title: t('sidebar.stores'), url: '/stores', icon: StoreIcon },
+    { title: t('sidebar.tables'), url: '/tables', icon: Utensils },
     { title: t('sidebar.tableManagement'), url: '/table-management', icon: TableProperties },
-    { title: t('sidebar.employees'),       url: '/employees',        icon: Users },
-    { title: t('sidebar.transactions'),    url: '/transactions',     icon: History },
-    { title: t('sidebar.settings'),        url: '/settings',         icon: Settings }
+    { title: t('sidebar.employees'), url: '/employees', icon: Users },
+    { title: t('sidebar.transactions'), url: '/transactions', icon: History },
+    { title: t('sidebar.account'), url: '/account', icon: Info },
+    { title: t('sidebar.settings'), url: '/settings', icon: Settings }
+
   ];
 
   const employeeItems = [
-    { title: t('sidebar.tables'),          url: '/tables',           icon: Utensils },
+    { title: t('sidebar.tables'), url: '/tables', icon: Utensils },
     { title: t('sidebar.tableManagement'), url: '/table-management', icon: TableProperties },
-    { title: t('sidebar.transactions'),    url: '/transactions',     icon: History }
+    { title: t('sidebar.transactions'), url: '/transactions', icon: History }
   ];
 
   const items = role === 'admin' ? adminItems : employeeItems;
@@ -102,7 +105,7 @@ export default function AppSidebar() {
                         className={`${active
                           ? 'bg-luxury-gold text-luxury-gold-foreground font-medium'
                           : 'hover:bg-sidebar-accent hover:text-sidebar-accent-foreground'
-                        } transition-all duration-200`}
+                          } transition-all duration-200`}
                       >
                         <item.icon className="h-4 w-4" />
                         {!isCollapsed && <span>{item.title}</span>}

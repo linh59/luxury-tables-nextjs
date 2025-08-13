@@ -46,7 +46,7 @@
     "redo": "Làm lại",
     "accessDenied": "Không có quyền truy cập",
     "optional": "Tùy chọn",
-     "required": "Required"
+    "required": "Required"
   },
   "login": {
     "title": "Luxury Table",
@@ -72,10 +72,36 @@
     "transactions": "Giao dịch",
     "settings": "Cài đặt",
     "administration": "Quản trị",
-    "operations": "Hoạt động"
+    "operations": "Hoạt động",
+    "account": "Account"
   },
   "header": {
     "administrator": "Quản trị viên"
+  },
+  "account": {
+    "title": "Tài khoản",
+    "description": "Quản lý thông tin tài khoản của bạn",
+    "settings": "Cài đặt",
+    "profileInformation": "Thông tin Hồ sơ",
+    "profileDescription": "Cập nhật thông tin cá nhân, mật khẩu và cài đặt bảo mật",
+    "securityDescription": "Quản lý bảo mật tài khoản của bạn",
+    "uploadAvatar": "Tải lên Ảnh đại diện",
+    "firstName": "Tên",
+    "lastName": "Họ",
+    "email": "Email",
+    "phone": "Số điện thoại",
+    "saveChanges": "Lưu thay đổi",
+    "reset":"Đặt lại",
+    "changePassword": "Đổi mật khẩu",
+    "currentPassword": "Mật khẩu hiện tại",
+    "newPassword": "Mật khẩu mới",
+    "confirmNewPassword": "Xác nhận mật khẩu mới",
+    "profile": "Hồ sơ",
+    "security": "Bảo mật",
+    "updatePassword": "Cập nhật Mật khẩu",
+    "profileUpdated": "Hồ sơ đã được cập nhật thành công",
+    "updateFailed": "Cập nhật không thành công",
+    "lastUpdated": "Cập nhật lần cuối"
   },
   "tables": {
     "title": "Bàn ăn",

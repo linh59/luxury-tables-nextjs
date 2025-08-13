@@ -9,7 +9,7 @@ const UserProfile = () => {
     return (
         <div className="user-profile">
             <span className="text-xs text-muted-foreground">
-                
+               
                 { user?.email || 'Guest'}
             </span>
         </div>
