@@ -1,40 +1,43 @@
 'use client';
 
-import React, {useEffect, useMemo, useState} from 'react';
-import {useTranslations} from 'next-intl';
-import {Card, CardContent} from '@/components/ui/card';
-import {Button} from '@/components/ui/button';
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select';
-import {Label} from '@/components/ui/label';
-import {Badge} from '@/components/ui/badge';
-import {Plus, Filter, Building2} from 'lucide-react';
-import { Store, Table, TableGroup } from '../../../../../types';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useTranslations } from 'next-intl';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Label } from '@/components/ui/label';
+import { Badge } from '@/components/ui/badge';
+import { Plus, Filter, Building2 } from 'lucide-react';
+import { Table, TableGroup } from '../../../../../types';
 import { TableGrid } from '@/components/table-grid';
 import { OrderDialog } from '@/components/order-dialog';
+import { se } from 'date-fns/locale';
+import { POST } from '@/app/api/auth/login/route';
+import { POSTableGrid } from '@/components/tables/post-table-grid';
+import { useStores } from '@/queries/useStores';
 // import {useAuth} from '@/contexts/AuthContext';
 
 type Props = {
-  initialStores: Store[];
   initialTables: Table[];
   initialGroups: TableGroup[];
 };
 
 const STATUS_OPTIONS = [
-  {value: 'all', labelKey: 'tables.allStatus'},
-  {value: 'empty', labelKey: 'tables.available'},
-  {value: 'eating', labelKey: 'tables.occupied'},
-  {value: 'processing', labelKey: 'tables.processing'},
-  {value: 'paid', labelKey: 'tables.paid'}
+  { value: 'all', labelKey: 'tables.allStatus' },
+  { value: 'empty', labelKey: 'tables.available' },
+  { value: 'eating', labelKey: 'tables.occupied' },
+  { value: 'processing', labelKey: 'tables.processing' },
+  { value: 'paid', labelKey: 'tables.paid' }
 ] as const;
 
 export default function TableList({
-  initialStores,
   initialTables,
   initialGroups
 }: Props) {
   const t = useTranslations();
   // const {user} = useAuth(); // bật khi có AuthContext
-  const user = undefined as unknown as {role:'admin'|'employee'; storeId?:string} | undefined;
+  const { data: store, isLoading: isLoadingStore } = useStores({}); // bật khi có useStores hook
+  const user = undefined as unknown as { role: 'admin' | 'employee'; storeId?: string } | undefined;
 
   const [tables, setTables] = useState<Table[]>([]);
   const [filteredTables, setFilteredTables] = useState<Table[]>([]);
@@ -42,17 +45,21 @@ export default function TableList({
   const [selectedGroup, setSelectedGroup] = useState<string>('all');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [selectedTable, setSelectedTable] = useState<Table | null>(null);
-//   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  //   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   // Init store theo role
   useEffect(() => {
+    if (!store || isLoadingStore) return;
+    console.log('Store data:', store);
     if (user?.role === 'employee' && user.storeId) {
       setSelectedStore(user.storeId);
     } else {
+
       // demo: pick store đầu tiên
-      setSelectedStore(initialStores[0]?.id ?? '');
+      setSelectedStore(store.data[0]?.id ?? '');
+      // setSelectedStore(initialStores[0]?.id ?? '');
     }
-  }, [user, initialStores]);
+  }, [user, store, isLoadingStore]);
 
   // Lọc theo store
   useEffect(() => {
@@ -78,10 +85,11 @@ export default function TableList({
     paid: filteredTables.filter(t => t.status === 'paid').length
   }), [filteredTables]);
 
-  const selectedStoreName = useMemo(
-    () => initialStores.find(s => s.id === selectedStore)?.name,
-    [initialStores, selectedStore]
-  );
+  // const selectedStoreName = useMemo(
+  //   () => store?.data.find(s => s.id === selectedStore)?.store_name,
+  //   [store, selectedStore]
+  // );
+  const selectedStoreName = store?.data.find((s) => s.id === selectedStore)?.store_name ?? '';
 
   const handleTableClick = (table: Table) => setSelectedTable(table);
 
@@ -90,12 +98,12 @@ export default function TableList({
     setSelectedTable(updated);
   };
   const handleCreateTransaction = () => {
-   
+
   };
-//   const handleCreateTransaction = (tx: Transaction) => {
-//     setTransactions(prev => [...prev, tx]);
-//     // toast.success(t('order.transactionRecorded'))
-//   };
+  //   const handleCreateTransaction = (tx: Transaction) => {
+  //     setTransactions(prev => [...prev, tx]);
+  //     // toast.success(t('order.transactionRecorded'))
+  //   };
 
   return (
     <div className="space-y-6">
@@ -108,45 +116,45 @@ export default function TableList({
           </p>
         </div>
 
-        
+
       </div>
 
       {/* Store Selection */}
-      
-        <Card className="glass">
-          <CardContent className="p-4">
-            <div className="flex items-center gap-4">
-              <Building2 className="h-4 w-4 text-muted-foreground" />
-              <div className="flex items-center gap-2">
-                <Label htmlFor="store-select">{t('tables.selectStore')}:</Label>
-                <Select value={selectedStore} onValueChange={setSelectedStore}>
-                  <SelectTrigger className="w-64">
-                    <SelectValue placeholder={t('tables.chooseStore')} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {initialStores.map(store => (
-                      <SelectItem key={store.id} value={store.id}>{store.name}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              {selectedStoreName && (
-                <Badge variant="outline" className="ml-2">{selectedStoreName}</Badge>
-              )}
+
+      <Card className="glass">
+        <CardContent className="p-4">
+          <div className="flex items-center gap-4">
+            <Building2 className="h-4 w-4 text-muted-foreground" />
+            <div className="flex items-center gap-2">
+              <Label htmlFor="store-select">{t('tables.selectStore')}:</Label>
+              <Select value={selectedStore} onValueChange={setSelectedStore}>
+                <SelectTrigger className="w-64">
+                  <SelectValue placeholder={t('tables.chooseStore')} />
+                </SelectTrigger>
+                <SelectContent>
+                  {store?.data.map(store => (
+                    <SelectItem key={store.id} value={store.id}>{store.store_name}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
-          </CardContent>
-        </Card>
-  
+            {selectedStoreName && (
+              <Badge variant="outline" className="ml-2">{selectedStoreName}</Badge>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+
 
       {selectedStore ? (
         <>
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {([
-              {colorClass:'bg-table-empty', label:t('tables.available'), value:counts.empty},
-              {colorClass:'bg-table-eating', label:t('tables.occupied'), value:counts.eating},
-              {colorClass:'bg-table-processing  ', label:t('tables.processing'), value:counts.processing},
-              {colorClass:'bg-table-paid', label:t('tables.paid'), value:counts.paid},
+              { colorClass: 'bg-table-empty', label: t('tables.available'), value: counts.empty },
+              { colorClass: 'bg-table-eating', label: t('tables.occupied'), value: counts.eating },
+              { colorClass: 'bg-table-processing  ', label: t('tables.processing'), value: counts.processing },
+              { colorClass: 'bg-table-paid', label: t('tables.paid'), value: counts.paid },
             ] as const).map((item, i) => (
               <Card key={i} className="glass">
                 <CardContent className="p-4">
@@ -195,7 +203,18 @@ export default function TableList({
           </Card>
 
           {/* Tables Grid */}
-          <TableGrid tables={filteredTables} onTableClick={handleTableClick} />
+          {/* <TableGrid tables={filteredTables} onTableClick={handleTableClick} /> */}
+           <div className="mx-16">
+            Table
+              {/* <POSTableGrid
+                tables={paginatedTables}
+                onTableClick={handleTableClick}
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+                maxColumnsPerRow={maxColumnsPerRow}
+              /> */}
+            </div>
         </>
       ) : (
         <Card className="glass">
@@ -207,7 +226,8 @@ export default function TableList({
             </p>
           </CardContent>
         </Card>
-      )}
+      )
+      }
 
       {/* Order Dialog */}
       {selectedTable && (

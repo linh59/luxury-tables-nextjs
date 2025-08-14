@@ -1,5 +1,5 @@
 import z from 'zod'
-import { Role } from '../../../constants/type'
+import { Role } from '../../constants/type'
 
 export const AccountSchema = z.object({
   id: z.number(),

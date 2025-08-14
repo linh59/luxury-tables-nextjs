@@ -1,6 +1,6 @@
 'use client';
 import authApiRequest from "@/apiRequests/auth";
-import { LoginBodyType } from "@/lib/schemaValidations/auth.schema";
+import { LoginBodyType } from "@/lib/schema-validations/auth.schema";
 import { setAccessTokenToLocalStorage } from "@/lib/utils";
 import { useMutation } from "@tanstack/react-query";
 

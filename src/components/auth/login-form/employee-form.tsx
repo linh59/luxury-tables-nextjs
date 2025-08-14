@@ -12,7 +12,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import authApiRequest from '@/apiRequests/auth';
-import { LoginEmployeeBody, LoginEmployeeBodyType } from '@/lib/schemaValidations/auth.schema';
+import { LoginEmployeeBody, LoginEmployeeBodyType } from '@/lib/schema-validations/auth.schema';
 
 
 export default function EmployeeLoginForm({ onLoggedIn }: { onLoggedIn?: () => void }) {

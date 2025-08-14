@@ -10,7 +10,6 @@ export default async function TablesPage({
 
   return (
     <TableList
-      initialStores={MOCK_STORES}
       initialTables={MOCK_TABLES}
       initialGroups={MOCK_GROUPS}
     />

@@ -201,5 +201,25 @@
       "reports": "Báo cáo",
       "settings": "Cài đặt"
     }
-  }
+  },
+   "stores": {
+        "title": "Stores",
+        "description": "Manage your restaurant locations",
+        "addStore": "Add Store",
+        "searchPlaceholder": "Search by name or location..."
+    },
+    "store": {
+        "status": {
+            "all": "All",
+            "active": "Active",
+            "request_active": "Request Active"
+        },
+        "date":{
+            "all": "All",
+            "today": "Today",
+            "week": "Week",
+            "month": "Month",
+            "custom": "Custom"
+        }
+    }
 }

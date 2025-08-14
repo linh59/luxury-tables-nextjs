@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Shield, Eye, EyeOff, Key } from 'lucide-react';
-import { PasswordFormDataType, PasswordSchema } from '@/lib/schemaValidations/account.schema';
+import { PasswordFormDataType, PasswordSchema } from '@/lib/schema-validations/account.schema';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { useChangePasswordMutation } from '@/queries/useAccount';

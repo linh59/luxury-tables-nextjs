@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { LoginBody, type LoginBodyType } from '@/lib/schemaValidations/auth.schema';
+import { LoginBody, type LoginBodyType } from '@/lib/schema-validations/auth.schema';
 import { useLoginMutation } from '@/queries/useAuth';
 import { handleErrorApi } from '@/lib/utils';
 

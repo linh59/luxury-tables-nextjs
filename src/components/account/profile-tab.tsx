@@ -9,7 +9,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { User, Save, RotateCcw } from 'lucide-react';
 import { toast } from 'sonner';
 import { useTranslations } from 'next-intl';
-import {  AccountUpdateFormSchema, AccountUpdateFormSchemaType } from '@/lib/schemaValidations/account.schema';
+import {  AccountUpdateFormSchema, AccountUpdateFormSchemaType } from '@/lib/schema-validations/account.schema';
 import { useEffect, useState } from 'react';
 import { useProfile, useUpdateProfileMutation } from '@/queries/useAccount';
 import { handleErrorApi } from '@/lib/utils';

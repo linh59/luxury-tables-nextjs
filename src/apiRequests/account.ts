@@ -1,5 +1,5 @@
 import http from '@/lib/http'
-import { AccountType, AccountUpdateFormSchemaType, PasswordFormDataResType, PasswordFormDataType } from '@/lib/schemaValidations/account.schema'
+import { AccountType, AccountUpdateFormSchemaType, PasswordFormDataResType, PasswordFormDataType } from '@/lib/schema-validations/account.schema'
 
 const accountApiRequest = {
     // gọi Next Route Handler (same-origin)

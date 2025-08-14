@@ -1,6 +1,6 @@
 
 import accountApiRequest from "@/apiRequests/account";
-import {  AccountType, AccountUpdateFormSchemaType, PasswordFormDataType } from "@/lib/schemaValidations/account.schema";
+import {  AccountType, AccountUpdateFormSchemaType, PasswordFormDataType } from "@/lib/schema-validations/account.schema";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const useProfile =  () => {

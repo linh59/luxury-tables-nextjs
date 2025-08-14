@@ -1,5 +1,5 @@
 import http from '@/lib/http'
-import { LoginBodyType, LoginEmployeeBodyType, LoginResType } from '@/lib/schemaValidations/auth.schema';
+import { LoginBodyType, LoginEmployeeBodyType, LoginResType } from '@/lib/schema-validations/auth.schema';
 
 
 const authApiRequest = {
