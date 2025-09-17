@@ -13,7 +13,8 @@ import UserProfile from '@/components/navigation/user-profile';
 export default function ManageLayout({
   children
 }: Readonly<{ children: React.ReactNode; params: { locale: string } }>) {
-//   const { user, logout } = useAuth();
+
+  //   const { user, logout } = useAuth();
     
 //   if (!user) return <>{children}</>;
 

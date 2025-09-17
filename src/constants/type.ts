@@ -22,7 +22,7 @@ export type StoreStatusAPIType = (typeof StoreStatusAPIValues)[number];
 
 // UI filter (thêm all)
 export const StoreStatusUIValues = ['all', ...StoreStatusAPIValues] as const;
-export type StoreStatusUIType = typeof StoreStatusUIValues[number];
+export type StoreStatusUIType = (typeof StoreStatusUIValues)[number];
 
 // Date Filter
 export const DateFilter = {
