@@ -6,9 +6,8 @@ import { LogOut } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import { toast } from 'sonner';
-import authApiRequest from '@/apiRequests/auth';
 import { clientCleanup } from '@/lib/client-cleanup';
-import { useLogoutMutiation } from '@/queries/useAuth';
+import { useLogoutMutiation } from '@/queries/use-auth';
 import { handleErrorApi } from '@/lib/utils';
 
 type Props = React.ComponentProps<typeof Button> & {

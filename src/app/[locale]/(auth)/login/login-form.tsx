@@ -1,6 +1,5 @@
 'use client';
 
-import * as React from 'react';
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { toast } from 'sonner';
@@ -12,17 +11,17 @@ import { LanguageSelector } from '@/components/language-selector';
 import LightDarkModeBtn from '@/components/light-dark-mode-btn';
 import AdminLoginForm from '@/components/auth/login-form/admin-form';
 import EmployeeLoginForm from '@/components/auth/login-form/employee-form';
+import { useCallback, useState } from 'react';
 
 export default function LoginForm() {
   const t = useTranslations();
-  const [tab, setTab] = React.useState<'admin' | 'employee'>('admin');
+  const [tab, setTab] = useState<'admin' | 'employee'>('admin');
   const router = useRouter();
   const locale = useLocale();
 
-  const onLoggedIn = React.useCallback(() => {
+  const onLoggedIn = useCallback(() => {
     toast.success('Logged in');
     router.push(`/${locale}/tables`);
-    router.refresh();
   }, [router, locale]);
 
   return (

@@ -116,6 +116,7 @@ export default function StoresFilters({
             {/* Page size */}
             <div className="md:col-span-0 w-full">
                 <Label>Page size</Label>
+                
                 <Select value={String(pageSize)} onValueChange={(v) => onPageSizeChange(Number(v))}>
                     <SelectTrigger className="w-full">
                         <SelectValue />

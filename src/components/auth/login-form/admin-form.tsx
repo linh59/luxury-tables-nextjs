@@ -11,8 +11,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { LoginBody, type LoginBodyType } from '@/lib/schema-validations/auth.schema';
-import { useLoginMutation } from '@/queries/useAuth';
-import { handleErrorApi } from '@/lib/utils';
+import { useLoginMutation } from '@/queries/use-auth';
+import { toast } from 'sonner';
 
 export default function AdminLoginForm({ onLoggedIn }: { onLoggedIn?: () => void }) {
   const t = useTranslations();
@@ -26,16 +26,13 @@ export default function AdminLoginForm({ onLoggedIn }: { onLoggedIn?: () => void
 
   const onSubmit = handleSubmit(async (values) => {
     setError(null); setLoading(true);
-    if(loginAdminMutation.isPending) return; // Prevent multiple submissions
+    if(loginAdminMutation.isPending) return; 
    
     try {
-      await loginAdminMutation.mutateAsync(values); // {email, password}
+      await loginAdminMutation.mutateAsync(values); 
       onLoggedIn?.();
     } catch (e: any) {
-        handleErrorApi({
-            error: e,
-            setError,
-        });
+       toast.error(e.response?.data?.message || 'Login failed')
       ;
     } finally {
       setLoading(false);

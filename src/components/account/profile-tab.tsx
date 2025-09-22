@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { User, Save, RotateCcw } from 'lucide-react';
@@ -11,7 +10,7 @@ import { toast } from 'sonner';
 import { useTranslations } from 'next-intl';
 import {  AccountUpdateFormSchema, AccountUpdateFormSchemaType } from '@/lib/schema-validations/account.schema';
 import { useEffect, useState } from 'react';
-import { useProfile, useUpdateProfileMutation } from '@/queries/useAccount';
+import { useProfile, useUpdateProfileMutation } from '@/queries/use-account';
 import { handleErrorApi } from '@/lib/utils';
 
 
@@ -19,7 +18,6 @@ export const ProfileTab = () => {
   const t = useTranslations();
   const { data: user, isLoading, isSuccess } = useProfile()
   const useUpdateProfile = useUpdateProfileMutation();
-  // const { user, updateProfile } = useAuth();
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 

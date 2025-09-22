@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { useStores } from '@/queries/useStores';
+import { useStores } from '@/queries/use-stores';
 import { DateFilterType, SortDirOption, StoreStatusUIType } from '../../../../constants/type';
 import StoresFilters from '@/app/[locale]/(root)/stores/stores-filters';
 import TablePagination from '@/components/table-pagination';
@@ -57,6 +57,7 @@ export default function StoresClient() {
       {/* Filters */}
       <Card className="glass">
         <CardContent className="p-4">
+          {}
           <StoresFilters
             // search
             searchTerm={searchTerm}
@@ -92,17 +93,7 @@ export default function StoresClient() {
 
           <StoresTable stores={stores?.data ?? []} isLoading={isLoading} />
 
-          <div className="mt-4">
-            <TablePagination
-              compact
-              totalPages={totalPages}
-              currentPage={currentPage}
-              totalItems={totalItems}
-              onPrev={() => setPageNo((p) => Math.max(1, p - 1))}
-              onNext={() => setPageNo((p) => Math.min(totalPages, p + 1))}
-              onJump={(page) => setPageNo(page)}
-            />
-          </div>
+         
         </CardContent>
       </Card>
     </div>

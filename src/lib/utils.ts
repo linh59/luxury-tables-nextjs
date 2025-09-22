@@ -30,7 +30,7 @@ export const handleErrorApi = ({
       })
     })
   } else {
-    toast(error?.payload?.message ?? 'Lỗi không xác định')
+    toast.error(error?.payload?.message ?? 'Lỗi không xác định')
   }
 }
 

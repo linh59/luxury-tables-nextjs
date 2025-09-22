@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import authApiRequest from '@/apiRequests/auth';
+import authApiRequest from '@/api-client/auth';
 import { LoginEmployeeBody, LoginEmployeeBodyType } from '@/lib/schema-validations/auth.schema';
 
 

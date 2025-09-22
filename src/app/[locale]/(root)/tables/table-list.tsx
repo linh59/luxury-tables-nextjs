@@ -3,18 +3,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Plus, Filter, Building2 } from 'lucide-react';
 import { Table, TableGroup } from '../../../../../types';
-import { TableGrid } from '@/components/table-grid';
 import { OrderDialog } from '@/components/order-dialog';
-import { se } from 'date-fns/locale';
-import { POST } from '@/app/api/auth/login/route';
-import { POSTableGrid } from '@/components/tables/post-table-grid';
-import { useStores } from '@/queries/useStores';
+import { useStores } from '@/queries/use-stores';
 // import {useAuth} from '@/contexts/AuthContext';
 
 type Props = {

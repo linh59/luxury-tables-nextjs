@@ -1,22 +1,19 @@
 
 import React from 'react';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
-// import { useAuth } from '@/contexts/AuthContext';
 import { Moon, Sun, LogOut, Crown, User } from 'lucide-react';
 import { LanguageSelector } from '@/components/language-selector';
 import LightDarkModeBtn from '@/components/light-dark-mode-btn';
 import AppSidebar from '@/components/app-side-bar';
 import LogoutButton from '@/components/auth/logout-button';
-import { useProfile } from '@/queries/useAccount';
+import { useProfile } from '@/queries/use-account';
 import UserProfile from '@/components/navigation/user-profile';
 
 export default function ManageLayout({
   children
 }: Readonly<{ children: React.ReactNode; params: { locale: string } }>) {
 
-  //   const { user, logout } = useAuth();
     
-//   if (!user) return <>{children}</>;
 
   return (
     <SidebarProvider>

@@ -26,7 +26,7 @@ import {
 } from 'lucide-react';
 
 import { useTranslations } from 'next-intl';
-import { usePathname, useRouter, Link } from '@/i18n/routing'; // ✅ next-intl navigation (thay cho react-router-dom)
+import { usePathname, useRouter, Link } from '@/i18n/routing'; 
 
 export default function AppSidebar() {
   const t = useTranslations();
@@ -35,20 +35,17 @@ export default function AppSidebar() {
   const router = useRouter();         // push/replace sẽ tự thêm locale
   const isCollapsed = state === 'collapsed';
 
-  // TODO: lấy role từ AuthContext nếu có
   // const { user } = useAuth();
   // const role = user?.role ?? 'admin';
   const role: 'admin' | 'employee' = 'admin';
 
   const adminItems = [
-    { title: t('sidebar.dashboard'), url: '/dashboard', icon: LayoutDashboard },
     { title: t('sidebar.stores'), url: '/stores', icon: StoreIcon },
     { title: t('sidebar.tables'), url: '/tables', icon: Utensils },
-    { title: t('sidebar.tableManagement'), url: '/table-management', icon: TableProperties },
-    { title: t('sidebar.employees'), url: '/employees', icon: Users },
+    // { title: t('sidebar.tableManagement'), url: '/table-management', icon: TableProperties },
+    // { title: t('sidebar.employees'), url: '/employees', icon: Users },
     { title: t('sidebar.transactions'), url: '/transactions', icon: History },
     { title: t('sidebar.account'), url: '/account', icon: Info },
-    { title: t('sidebar.settings'), url: '/settings', icon: Settings }
 
   ];
 

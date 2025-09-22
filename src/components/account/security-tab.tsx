@@ -9,7 +9,7 @@ import { Shield, Eye, EyeOff, Key } from 'lucide-react';
 import { PasswordFormDataType, PasswordSchema } from '@/lib/schema-validations/account.schema';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
-import { useChangePasswordMutation } from '@/queries/useAccount';
+import { useChangePasswordMutation } from '@/queries/use-account';
 import { toast } from 'sonner';
 import { handleErrorApi } from '@/lib/utils';
 

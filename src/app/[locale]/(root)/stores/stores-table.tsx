@@ -34,7 +34,6 @@ export default function StoresTable({ stores, isLoading }: { stores: StoreType[]
                         <TableCell className="font-medium">
                             <div>
                                 <div>{formatDate(store.create_date)}</div>
-                                <div className="text-sm text-muted-foreground">{store.store_name}</div>
                             </div>
                         </TableCell>
                         <TableCell>

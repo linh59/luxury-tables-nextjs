@@ -1,17 +1,13 @@
 'use client';
-import authApiRequest from "@/apiRequests/auth";
+import authApiRequest from "@/api-client/auth";
 import { LoginBodyType } from "@/lib/schema-validations/auth.schema";
-import { setAccessTokenToLocalStorage } from "@/lib/utils";
 import { useMutation } from "@tanstack/react-query";
 
 export const useLoginMutation = () => {
     return useMutation({
         mutationFn: (body: LoginBodyType) => authApiRequest.login(body),
-        onSuccess: (data) => {
+        onSuccess: async (data) => {
             console.log('Login successful:', data);
-            const p = data.payload;
-            const token = p?.token ?? null;
-            if (token) setAccessTokenToLocalStorage(token);
         },
         onError: (error) => {
             // Handle login error

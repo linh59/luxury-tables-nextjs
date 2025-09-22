@@ -1,8 +1,8 @@
 'use client';
-import { useProfile } from "@/queries/useAccount";
+import { useProfile } from "@/queries/use-account";
 
 const UserProfile = () => {
-    const { data: user, isLoading, error } = useProfile();
+    const { data: user, isLoading, error,  } = useProfile();
      
     if(isLoading) return <div>Loading...</div>;
     if(error) return <div>Error loading user profile</div>;

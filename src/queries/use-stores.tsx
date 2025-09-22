@@ -1,6 +1,6 @@
 // queries/useStoresByFilters.ts
 import { Query, useQuery, UseQueryOptions } from '@tanstack/react-query';
-import storesApiRequest from '@/apiRequests/stores';
+import storesApiRequest from '@/api-client/stores';
 import { StoreListResType, StoreParamsType } from '@/lib/schema-validations/stores.schema';
 import { QueryKeyStores } from '@/constants/query-key';
 
@@ -22,7 +22,7 @@ export function useStores(filters?: StoreParamsType, options?: StoreQueryOptions
         ),
         queryFn: async () => {
             const res = await storesApiRequest.fetchStores(filters);
-            return res.payload;
+            return res.data;
         },
         refetchOnWindowFocus: false,
     });
