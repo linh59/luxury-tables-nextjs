@@ -142,7 +142,10 @@
         "closeReset": "Close & Reset Table",
         "transactionRecorded": "Transaction Recorded",
         "paymentOf": "Payment of",
-        "recordedFor": "has been recorded for table"
+        "recordedFor": "has been recorded for table",
+        "PAID_FLAG": "Paid",
+        "EXPIRED_FLAG": "Expired",
+        "WAITING_FOR_PAYMENT": "Waiting for payment"
     },
     "tableManagement": {
         "addTable": "Add Table"

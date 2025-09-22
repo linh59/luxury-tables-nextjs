@@ -2,12 +2,26 @@ export const QueryKeys = {
     STORES: 'stores',
     TABLES: 'tables',
     GROUPS: 'groups',
+    ORDERS: 'orders',
 };
  
 
 export const QueryKeyStores = {
     STORES: (stores?: string, status?: string, end_date?: string, start_date?: string, page_no?: number, page_size?: number, sort_by?: string, sort_dir?: string) => [
         QueryKeys.STORES,
+        stores,
+        status,
+        end_date,
+        start_date,
+        page_no ?? 1,
+        page_size,
+        sort_by ?? 'create_date',
+        sort_dir ?? 'desc',
+    ],
+};
+export const QueryKeyOrders = {
+    ORDERS: (stores?: string, status?: string, end_date?: string, start_date?: string, page_no?: number, page_size?: number, sort_by?: string, sort_dir?: string) => [
+        QueryKeys.ORDERS,
         stores,
         status,
         end_date,
@@ -53,6 +67,7 @@ export const QueryKeyConstants = {
     ...QueryKeyStores,
     ...QueryKeyTables,
     ...QueryKeyGroups,
+    ...QueryKeyOrders,
 };
 
 // Usage example:

@@ -36,6 +36,9 @@ export const DateFilterValues = Object.values(DateFilter);
 export type DateFilterType = (typeof DateFilterValues)[number];
 
 // Sort Direction
+export const SortByOption = {
+  create_date: 'create_date',
+} as const;
 export const SortDirOption = {
   desc: 'desc',
   asc: 'asc',

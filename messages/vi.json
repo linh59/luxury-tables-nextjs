@@ -142,7 +142,10 @@
     "closeReset": "Đóng & Đặt lại Bàn",
     "transactionRecorded": "Giao dịch Đã được Ghi nhận",
     "paymentOf": "Thanh toán",
-    "recordedFor": "đã được ghi nhận cho bàn"
+    "recordedFor": "đã được ghi nhận cho bàn",
+    "PAID_FLAG": "Đã thanh toán",
+    "EXPIRED_FLAG": "Hết hạn",
+    "WAITING_FOR_PAYMENT": "Đang chờ"
   },
   "tableManagement": {
     "addTable": "Thêm Bàn"

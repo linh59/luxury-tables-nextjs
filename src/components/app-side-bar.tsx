@@ -44,7 +44,7 @@ export default function AppSidebar() {
     { title: t('sidebar.tables'), url: '/tables', icon: Utensils },
     // { title: t('sidebar.tableManagement'), url: '/table-management', icon: TableProperties },
     // { title: t('sidebar.employees'), url: '/employees', icon: Users },
-    { title: t('sidebar.transactions'), url: '/transactions', icon: History },
+    { title: t('sidebar.transactions'), url: '/orders', icon: History },
     { title: t('sidebar.account'), url: '/account', icon: Info },
 
   ];
@@ -52,7 +52,7 @@ export default function AppSidebar() {
   const employeeItems = [
     { title: t('sidebar.tables'), url: '/tables', icon: Utensils },
     { title: t('sidebar.tableManagement'), url: '/table-management', icon: TableProperties },
-    { title: t('sidebar.transactions'), url: '/transactions', icon: History }
+    { title: t('sidebar.transactions'), url: '/orders', icon: History }
   ];
 
   const items = role === 'admin' ? adminItems : employeeItems;

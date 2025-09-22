@@ -18,3 +18,8 @@ export function getPresetDateRange(
   const fmt = (d: Date) => d.toISOString().slice(0, 10);
   return { start_date: fmt(start), end_date: fmt(end) };
 }
+
+export function formatDate(d: string) {
+    // BE trả ISO → hiện ngắn gọn, tuỳ bạn đổi theo locale
+    try { return new Date(d).toLocaleString(); } catch { return d; }
+}
