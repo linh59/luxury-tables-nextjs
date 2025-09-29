@@ -1,5 +1,6 @@
 'use client';
 import OrdersTable from "@/components/orders/orders-table";
+import { OrderStatusOption, OrderStatusOptionValues } from "@/constants/order-type";
 import { SortByOption, SortDirOption } from "@/constants/type";
 import { useOrders } from "@/queries/use-orders";
 import { useTranslations } from "next-intl";
@@ -24,6 +25,7 @@ const  Orders = () => {
         <h1 className="text-3xl font-luxury font-bold">{t('sidebar.transactions')}</h1>
       </div>
      {orders && <OrdersTable orders={orders.data} isLoading={isLoading} />}
+    
   </div>;
 }
 export default Orders;
